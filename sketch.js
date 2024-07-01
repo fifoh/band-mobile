@@ -561,7 +561,7 @@ function draw() {
     let startX = ellipses[i].centerX;
     let startY = windowHeight * 0.335; // Fixed startY for bars
     let endX = startX;
-    let endY = startY - windowHeight*0.15 + i*5; // Adjust the length as needed (negative for upward direction)
+    let endY = startY - windowHeight*0.15 + i*4.8; // Adjust the length as needed (negative for upward direction)
     line(startX, startY, endX, endY);
     
     // draw the clickable instrument buttons
