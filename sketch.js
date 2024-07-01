@@ -673,7 +673,7 @@ function mousePressed() {
   }  
 
   // Determine which ellipse was clicked
-  clickProximityX = windowWidth*0.4 / numEllipses // Minimum distance between points
+  clickProximityX = windowWidth*0.25 / numEllipses // Minimum distance between points
   for (let i = 0; i < ellipses.length; i++) {
     let ellipseData = ellipses[i];
     let dXLeft = abs(mouseX - (ellipseData.centerX - clickProximityX));
