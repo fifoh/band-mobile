@@ -12,7 +12,7 @@ let ellipseButtons = [];
 let ellipseColors = [
   [255,228,209],   // Red
   [203,237,209],   // Green
-  [187,234,255]    // Blue
+  [167,234,255]    // Blue
 ];
 
 // visual bars
@@ -818,6 +818,8 @@ function clearNotes() {
   for (let i = 0; i < ellipses.length; i++) {
     ellipses[i].points = [];
   }
+  individualInstrumentArray = new Array(37).fill(1);
+  loadAudioSet(individualInstrumentArray);
 }
 
 function resizeCanvasToWindow() {
