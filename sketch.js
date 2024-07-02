@@ -400,25 +400,20 @@ function setup() {
   
   // Add options
   scalesDropdown.option('Select a Scale:', ''); // This will be the heading
-
-  scalesDropdown.option('--- Pentatonic ---');
-  scalesDropdown.disable('--- Pentatonic ---');
-  scalesDropdown.option('Major');
-  scalesDropdown.option('Minor');
-
-  scalesDropdown.option('--- Modal ---');
-  scalesDropdown.disable('--- Modal ---');
-  scalesDropdown.option('Ionian');
-  scalesDropdown.option('Dorian');
-  scalesDropdown.option('Mixolydian');
-  scalesDropdown.option('Aeolian');
+  scalesDropdown.disable('Select a Scale:', '');
   
-  scalesDropdown.option('--- Other ---');
-  scalesDropdown.disable('--- Other ---');
+  scalesDropdown.option('Major Pentatonic');
+  scalesDropdown.option('Minor Pentatonic');
+  scalesDropdown.option('Major scale');
+  scalesDropdown.option('Dorian mode');
+  scalesDropdown.option('Mixolydian mode');
+  scalesDropdown.option('Aeolian mode');
   scalesDropdown.option('Chromatic');
   scalesDropdown.option('Harmonic Minor');
   scalesDropdown.option('Whole Tone');
   scalesDropdown.option('Octatonic');
+
+  // Set a callback function for when an option is selected
   scalesDropdown.position(windowWidth/2, windowHeight - 25);
 
   // Set a callback function for when an option is selected
@@ -428,8 +423,7 @@ function setup() {
   instrumentDropdown = createSelect();
   
   // Add options to the dropdown
-  instrumentDropdown.option('Instrument:');
-  instrumentDropdown.disable('Instrument:');
+  instrumentDropdown.option('Select an Instrument:', '');
   instrumentDropdown.option('Comb');
   instrumentDropdown.option('Piano');
   instrumentDropdown.option('Harp');
@@ -673,7 +667,7 @@ function mousePressed() {
   }  
 
   // Determine which ellipse was clicked
-  clickProximityX = windowWidth*0.25 / numEllipses // Minimum distance between points
+  clickProximityX = windowWidth*0.4 / numEllipses // Minimum distance between points
   for (let i = 0; i < ellipses.length; i++) {
     let ellipseData = ellipses[i];
     let dXLeft = abs(mouseX - (ellipseData.centerX - clickProximityX));
@@ -745,7 +739,7 @@ function touchStarted() {
     }      
 
     // Determine which ellipse was touched
-    clickProximityX = windowWidth*0.4 / numEllipses // Minimum distance between points
+    clickProximityX = windowWidth*0.25 / numEllipses // Minimum distance between points
     for (let i = 0; i < ellipses.length; i++) {
       let ellipseData = ellipses[i];
       let dXLeft = abs(touchX - (ellipseData.centerX - clickProximityX));
@@ -867,22 +861,22 @@ function changeScale() {
   let selectedScale = scalesDropdown.value();
   if (selectedScale !== 'disabled') {
     // Process selected scale
-    if (selectedScale === 'Major') {// pentatonic
+    if (selectedScale === 'Major Pentatonic') {// pentatonic
       scaleMappings = majorPentatonic;
     } 
-    if (selectedScale === 'Minor') {// pentatonic
+    if (selectedScale === 'Minor Pentatonic') {// pentatonic
       scaleMappings = minorPentatonic;
     }     
-    if (selectedScale === 'Ionian') {
+    if (selectedScale === 'Major scale') {
       scaleMappings = ionian;
     }
-    if (selectedScale === 'Dorian') {
+    if (selectedScale === 'Dorian mode') {
       scaleMappings = dorian;
     }
-    if (selectedScale === 'Mixolydian') {
+    if (selectedScale === 'Mixolydian mode') {
       scaleMappings = mixolydian;
     }
-    if (selectedScale === 'Aeolian') {
+    if (selectedScale === 'Aeolian mode') {
       scaleMappings = aeolian;
     }
     if (selectedScale === 'Chromatic') {
