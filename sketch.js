@@ -84,7 +84,7 @@ function loadAudioSet(individualInstrumentArray) {
     } else if (setNumber === 2) {
       instrumentSet = 'piano';
     } else if (setNumber === 3) {
-      instrumentSet = 'guitar';
+      instrumentSet = 'bells';
     } else {
       console.error(`Invalid set number ${setNumber} at index ${i}`);
       return;
@@ -117,7 +117,7 @@ function finishedLoading(newBufferList, bufferIndicesToLoad) {
     } else if (setNumber === 2) {
       instrumentSet = 'piano';
     } else if (setNumber === 3) {
-      instrumentSet = 'guitar';
+      instrumentSet = 'bells';
     }
 
     let filePath = `${instrumentSet}/${bufferIndex}.mp3`;
@@ -133,7 +133,7 @@ function finishedLoading(newBufferList, bufferIndicesToLoad) {
       } else if (setNumber === 2) {
         instrumentSet = 'piano';
       } else if (setNumber === 3) {
-        instrumentSet = 'guitar';
+        instrumentSet = 'bells';
       }
       return `${instrumentSet}/${bufferIndex}.mp3`;
     });
@@ -389,7 +389,7 @@ function setup() {
   instrumentDropdown.option('Select an Instrument:', '');
   instrumentDropdown.option('Comb');
   instrumentDropdown.option('Piano');
-  instrumentDropdown.option('Harp');
+  instrumentDropdown.option('Bells');
   instrumentDropdown.position(10, windowHeight - 25);
   instrumentDropdown.changed(changeInstrument);  
   
@@ -794,7 +794,7 @@ function changeInstrument() {
     if (selectedInstrument === 'Piano') {
       individualInstrumentArray = new Array(37).fill(2);
     }
-    if (selectedInstrument === 'Harp') {
+    if (selectedInstrument === 'Bells') {
       individualInstrumentArray = new Array(37).fill(3);
     }
     console.log('Selected instrument:', selectedInstrument);
