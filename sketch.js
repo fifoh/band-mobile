@@ -20,6 +20,8 @@ let numEllipses = 5;
 let preventNoteCreation;
 let rectX, rectY, rectWidth, rectHeight;
 
+let randomButton;
+
 // Audio
 let audioBuffers = [];
 let audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -412,6 +414,11 @@ function setup() {
       initializePointsArray();
     }
   });  
+  
+  randomButton = createImg("images/random_button.jpg", "R")
+  randomButton.size(45, 45);
+  randomButton.touchStarted(randomiseEverything);
+  positionrandomButton();    
 
   metroImage = createImg('images/metro_icon.jpg', 'tempo');
   metroImage.size(45, 45);
@@ -719,6 +726,10 @@ function resizeCanvasToWindow() {
   redraw();
 }
 
+function positionrandomButton() {
+  randomButton.position(windowWidth - 50, 80);
+}
+
 function createEllipses() {
   let spacing = windowWidth *0.9 / numEllipses;
   ellipseHeight = windowHeight * 0.5;
@@ -812,4 +823,81 @@ function updateIndividualInstrumentArray(indexToUpdate) {
       loadAudioSet(individualInstrumentArray);
     }
   }, 50); // debounce
+}
+
+function randomiseEverything() {
+  randomTempo = random(0.01, 0.03); // full range
+  speedSlider.value(randomTempo);
+
+  // start with number of notes
+  numEllipses = int(random(10)) + 5;
+  
+  randomScale = random(["Major Pentatonic", "Minor Pentatonic", "Major scale", "Dorian mode", "Mixolydian mode", "Aeolian mode", "Chromatic", "Harmonic Minor", "Whole Tone", "Octatonic"]);
+  scalesDropdown.selected(randomScale);
+  changeScale();  
+  
+  points = [];
+  initializePointsArray();
+  
+  generateRandomPointsArray();
+    
+  // individ. instruments
+  individualInstrumentArray = [];
+  for (let i = 0; i < 37; i++) {
+  individualInstrumentArray.push(randomInt(1, 3));
+}
+  loadAudioSet(individualInstrumentArray);    
+  
+}
+
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateRandomPointsArray() {
+  let newEllipses = [];
+  let spacing = windowWidth * 0.9 / numEllipses;
+  ellipseHeight = windowHeight * 0.5;
+  clickProximityY = ellipseHeight;
+
+  for (let i = 0; i < numEllipses; i++) {
+    let numPoints = Math.floor(random(0, 7)); // Generate a random number of points between 3 and 10
+    let points = [];
+
+    for (let j = 0; j < numPoints; j++) {
+      let newAngle = random(TWO_PI); // Generate a random angle between 0 and 2*PI
+
+      // Check minimum distance between angles
+      let minDistance = radians(60); // Example: minimum distance of 10 degrees (converted to radians)
+      let canAdd = true;
+
+      for (let k = 0; k < points.length; k++) {
+        let existingAngle = points[k].angle;
+        let distance = abs(angleDifference(newAngle, existingAngle));
+        if (distance < minDistance) {
+          canAdd = false;
+          break;
+        }
+      }
+
+      if (canAdd) {
+        points.push({ angle: newAngle });
+      }
+    }
+
+    newEllipses.push({ centerX: spacing * i + spacing, points: points });
+  }
+
+  ellipses = newEllipses; // Update the global ellipses array with new random points
+  barColors = []; // Reset barColors array or initialize as needed
+  for (let i = 0; i < numEllipses; i++) {
+    barColors[i] = color(0, 60); // Example: initialize barColors array
+  }
+}
+
+// Function to calculate the difference between two angles in radians
+function angleDifference(angle1, angle2) {
+  let diff = angle1 - angle2;
+  diff = ((diff + Math.PI) % (2 * Math.PI)) - Math.PI;
+  return abs(diff);
 }
