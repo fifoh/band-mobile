@@ -874,7 +874,7 @@ function generateRandomPointsArray() {
       for (let k = 0; k < points.length; k++) {
         let existingAngle = points[k].angle;
         let distance = abs(angleDifference(newAngle, existingAngle));
-        if (distance < minDistance) {
+        if (distance < minDistance || (newAngle >= PI + PI / 2 && newAngle < PI + PI / 2 + speedSlider.value())) {
           canAdd = false;
           break;
         }
