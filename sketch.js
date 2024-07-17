@@ -632,9 +632,8 @@ function mousePressed() {
 }
 
 function touchStarted() {
-  if (getAudioContext().state !== 'running') {
-    getAudioContext().resume();
-  }    
+  
+  userStartAudio();
   
   if (preventNoteCreation) return;
   if (touches.length > 0) {
