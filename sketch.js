@@ -647,6 +647,7 @@ function touchMoved() {
 
     // Update previous touch position
     previousTouchY = currentTouchY;
+    return false;
   }
   
   return true;
